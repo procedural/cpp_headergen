@@ -7,18 +7,19 @@ void generateHeader(size_t dataBytesCount, unsigned char * data) {
   printf(
     "#pragma once\n"
     "\n"
+    "#include <stdint.h>\n"
+    "\n"
     "size_t resourceGetBytesCount() {\n"
     "  return %zu;\n"
     "}\n"
     "\n"
-    "void resourceWriteToMemory(void * memory) {\n"
-    "  unsigned char * m = (unsigned char *)memory;\n",
+    "unsigned char resource[] = {\n",
     dataBytesCount
   );
   for (size_t i = 0; i < dataBytesCount; i += 1) {
-    printf("  m[%zu] = %d;\n", i, data[i]);
+    printf("  %d,\n", data[i]);
   }
-  printf("}\n");
+  printf("};\n");
 }
 
 int main(int argsCount, const char ** args) {
